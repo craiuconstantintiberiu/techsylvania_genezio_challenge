@@ -1,0 +1,16 @@
+name: html-example
+region: eu-central-1
+cloudProvider: aws
+sdk:
+  language: js
+  path: ../client/sdk
+scripts:
+  preBackendDeploy: npm install
+  preFrontendDeploy: cd ../client && npm install
+frontend:
+  path: ../client
+  subdomain: gray-wily-eel
+classes:
+  - path: ./task.js
+    type: jsonrpc
+    methods: []
