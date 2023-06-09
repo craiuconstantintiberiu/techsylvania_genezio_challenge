@@ -44,6 +44,4 @@ Note that this is, at it stands at the moment, a quick and dirty solution I bust
 (I did try using ChatGPT, but it makes hard-to-spot typos, even though it all looks well at first. This seems to happen on large files a lot, when continuing generation).
 
 
-I wanted to create a POST endpoint on the backend to be able to upload CSVs too, but I could not get it to work with Genezio unfortunately. It would have been cool though.
-
 Access it at https://gray-wily-eel.app.genez.io. I have added two sample CSV rows of 130 columns, and you can just press submit. The file is also present in the repo, as samplecsv.csv

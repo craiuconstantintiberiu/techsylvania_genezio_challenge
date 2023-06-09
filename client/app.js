@@ -1,4 +1,4 @@
-import {createSymfonyEntityClass, createSymfonyXMLFile, createImportService} from './codegeneration.js';
+import {GeneratorService} from "./sdk/generatorService.sdk.js"
 
 const SQLToDoctrineDeclarativeSchemaDataTypes = {
     "TEXT": "string",
@@ -81,30 +81,31 @@ function transitionToGenerationStage() {
 
 }
 
-document.getElementById("generateClassButton").addEventListener("click", function(){
+document.getElementById("generateClassButton").addEventListener("click", async function () {
     // Generate download of class file
     let namespace = document.getElementById("namespaceInput").value;
     let className = document.getElementById("classNameInput").value;
     let filename = className + ".php";
 
-    download(filename, createSymfonyEntityClass(namespace, className, savedData));
+    download(filename, await GeneratorService.createSymfonyEntityClass(namespace, className, savedData));
 }, false);
 
-document.getElementById("generateXMLOrmFile").addEventListener("click", function(){
+document.getElementById("generateXMLOrmFile").addEventListener("click", async function () {
     // Generate download of class file
     let className = document.getElementById("classNameInput").value;
     let tableName = document.getElementById("tableNameInput").value;
     let filename = className + ".orm.xml";
 
-    download(filename, createSymfonyXMLFile(className, tableName, savedData));
+    download(filename, await GeneratorService.createSymfonyXMLFile(className, tableName, JSON.stringify(savedData)));
 }, false);
 
-document.getElementById("generateImportService").addEventListener("click", function(){
+document.getElementById("generateImportService").addEventListener("click", async function () {
     // Generate download of class file
     let className = document.getElementById("classNameInput").value;
     let filename = className + "ImportService.php";
 
-    download(filename, createImportService(className, savedData));
+
+    download(filename, await GeneratorService.createImportService(className, JSON.stringify(savedData)));
 }, false);
 
 function transitionToDataInferenceStage() {
