@@ -50,7 +50,7 @@ h1 {
 }
 
 button {
-  padding: 12px 24px;
+  padding: 8px 18px;
   background-color: #137098;
   color: white;
   border: none;
@@ -59,6 +59,7 @@ button {
   font-size: 16px;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 4px;
 }
 
 button:hover {
