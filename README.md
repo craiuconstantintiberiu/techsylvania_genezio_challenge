@@ -41,6 +41,9 @@ I would say that around 30-40 minutes can be reduced by not manually converting 
 Note that this is, at it stands at the moment, a quick and dirty solution I busted out in around 2 hours. But it's very useful already, and it has all the core functionalities already, even though the CSS might not be that good 😆
 
 
+I wanted to create a POST endpoint on the backend to be able to upload CSVs too, but I could not get it to work with Genezio unfortunately. It would have been cool though.
+
+
 (I did try using ChatGPT, but it makes hard-to-spot typos, even though it all looks well at first. This seems to happen on large files a lot, when continuing generation).
 
 Access it at https://gray-wily-eel.app.genez.io. I have added two sample CSV rows of 130 columns, and you can just press submit. The file is also present in the repo, as samplecsv.csv
