@@ -11,6 +11,23 @@ const submitButton = document.getElementById('submitButton');
 let savedData = [];
 const phpColumns = [];
 const doctrineColumns = [];
+const resetButton = document.getElementById('resetButton');
+
+function goToImportStage() {
+    document.getElementById('import').classList.remove('hidden');
+    document.getElementById('inferDiv').classList.add('hidden');
+    document.getElementById('inputGenerate').classList.add('hidden');
+    inputHeader.value = "Company,Ticker,Sector,INDUstry-field,market cap,revenue,net income,EBITDA,EPS,P/E,P/S,P/B,dividend yield %,ROA,ROE,ROI,DebtEquityRatio,CurrentRatio,QuickRatio,OperatingMargin,ProfitMargin,GrossMargin,AssetTurnover,InventoryTurnover,AccountsReceivableTurnover,DaysSalesOutstanding,DaysInventory,DaysPayableOutstanding,WorkingCapital,FreeCashFlow,OperatingCashFlow,InvestingCashFlow,FinancingCashFlow,CapitalExpenditure,DividendsPaid,StockRepurchases,ShareholdersEquity,TotalAssets,TotalLiabilities,LongTermDebt,ShortTermDebt,Cash,RestrictedCash,AccountsReceivable,Inventory,PrepaidExpenses,PropertyPlantEquipment,Goodwill,IntangibleAssets,LongTermInvestments,OtherAssets,AccountsPayable,AccruedExpenses,DeferredRevenue,LongTermLiabilities,CurrentPortionOfLongTermDebt,IncomeTaxPayable,DeferredTaxLiabilities,OtherLiabilities,CommonStock,PreferredStock,AdditionalPaidInCapital,RetainedEarnings,TreasuryStock,OtherStockholdersEquity,RevenueGrowth,NetIncomeGrowth,EPSGrowth,ROAGrowth,ROEGrowth,ROIGrowth,DividendGrowth,DebtEquityRatioGrowth,CurrentRatioGrowth,QuickRatioGrowth,OperatingMarginGrowth,ProfitMarginGrowth,GrossMarginGrowth,AssetTurnoverGrowth,InventoryTurnoverGrowth,AccountsReceivableTurnoverGrowth,DaysSalesOutstandingGrowth,DaysInventoryGrowth,DaysPayableOutstandingGrowth,WorkingCapitalGrowth,FreeCashFlowGrowth,OperatingCashFlowGrowth,InvestingCashFlowGrowth,FinancingCashFlowGrowth,CapitalExpenditureGrowth,DividendsPaidGrowth,StockRepurchasesGrowth,ShareholdersEquityGrowth,TotalAssetsGrowth,TotalLiabilitiesGrowth,LongTermDebtGrowth,ShortTermDebtGrowth,CashGrowth,RestrictedCashGrowth,AccountsReceivableGrowth,InventoryGrowth,PrepaidExpensesGrowth,PropertyPlantEquipmentGrowth,GoodwillGrowth,IntangibleAssetsGrowth,LongTermInvestmentsGrowth,OtherAssetsGrowth,AccountsPayableGrowth,AccruedExpensesGrowth,DeferredRevenueGrowth,LongTermLiabilitiesGrowth,CurrentPortionOfLongTermDebtGrowth,IncomeTaxPayableGrowth,DeferredTaxLiabilitiesGrowth,OtherLiabilitiesGrowth,CommonStockGrowth,PreferredStockGrowth,AdditionalPaidInCapitalGrowth,RetainedEarningsGrowth,TreasuryStockGrowth,OtherStockholdersEquityGrowth,Price,Volume,MarketCapGrowth,PriceToEarningsRatioGrowth,PriceToSalesRatioGrowth,PriceToBookRatioGrowth,DividendYieldGrowth,DividendPayoutRatioGrowth,SharePriceGrowth";
+    inputRow.value="Genezio,GNZ,Technology,Software,1500000000,50000000,20000000,30000000,2.5,20.0,1.5,1.2,2.0,0.15,0.08,0.1,1.8,1.2,1.0,0.25,0.18,0.35,1.5,4.5,6.0,40,60,30,1000000,2000000,1500000,1000000,500000,400000,100000,1500000,5000000,3000000,2000000,1000000,500000,200000,300000,150000,250000,100000,500000,200000,100000,800000,1000000,150000,500000,100000,200000,800000,1000000,500000,400000,200000,300000,400000,200000,300000,150000,500000,200000,300000,150000,250000,100000,500000,200000,100000,800000,1000000,150000,500000,100000,200000,800000,1000000,500000,400000,200000,300000,400000,200000,300000,150000,500000,200000,300000,150000,250000,100000,500000,200000,100000,800000,1000000,150000,500000,100000,200000,800000,1000000,500000,400000,200000,300000,400000,200000,300000,150000,500000,200000,300000,150000,250000,100000,500000,200000,100000,800000,1000000,150000,500000,100000,200000"
+}
+
+resetButton.addEventListener('click', () => {
+    inputHeader.value = "";
+    inputRow.value = "";
+    savedData = [];
+    document.getElementById('tableCont').innerHTML = "";
+    goToImportStage();
+});
 
 function saveTableData() {
     let tableRows = document.querySelectorAll("#tableCont table tbody tr");
@@ -193,42 +210,38 @@ function transitionToGenerationStage() {
     const inputs = document.getElementById("inputGenerate");
     inputs.classList.remove("hidden");
 
-// Start file download.
-    document.getElementById("generateClassButton").addEventListener("click", function(){
-        // Generate download of class file
-        let namespace = document.getElementById("namespaceInput").value;
-        let className = document.getElementById("classNameInput").value;
-        let filename = className + ".php";
-
-        download(filename, createSymfonyEntityClass(namespace, className, savedData));
-    }, false);
-
-    document.getElementById("generateXMLOrmFile").addEventListener("click", function(){
-        // Generate download of class file
-        let className = document.getElementById("classNameInput").value;
-        let tableName = document.getElementById("tableNameInput").value;
-        let filename = className + ".orm.xml";
-
-        download(filename, createSymfonyXMLFile(className, tableName, savedData));
-    }, false);
-
-    document.getElementById("generateImportService").addEventListener("click", function(){
-        // Generate download of class file
-        let className = document.getElementById("classNameInput").value;
-        let filename = className + "ImportService.php";
-
-        download(filename, createImportService(className, savedData));
-    }, false);
-
-    // const generatedCode = generateCode(mappedColumnsDoctrineCompatible, mappedColumnsPHPCompatible, mappedColumnsSQLCompatible);
-    // const codeContainer = document.getElementById("codeContainer");
-    // codeContainer.classList.remove("hidden");
-    // const code = document.getElementById("code");
-    // code.textContent = generatedCode;
 }
+
+document.getElementById("generateClassButton").addEventListener("click", function(){
+    // Generate download of class file
+    let namespace = document.getElementById("namespaceInput").value;
+    let className = document.getElementById("classNameInput").value;
+    let filename = className + ".php";
+
+    download(filename, createSymfonyEntityClass(namespace, className, savedData));
+}, false);
+
+document.getElementById("generateXMLOrmFile").addEventListener("click", function(){
+    // Generate download of class file
+    let className = document.getElementById("classNameInput").value;
+    let tableName = document.getElementById("tableNameInput").value;
+    let filename = className + ".orm.xml";
+
+    download(filename, createSymfonyXMLFile(className, tableName, savedData));
+}, false);
+
+document.getElementById("generateImportService").addEventListener("click", function(){
+    // Generate download of class file
+    let className = document.getElementById("classNameInput").value;
+    let filename = className + "ImportService.php";
+
+    download(filename, createImportService(className, savedData));
+}, false);
 
 function transitionToDataInferenceStage() {
     {
+        document.getElementById("import").classList.add("hidden");
+        document.getElementById("inferDiv").classList.remove("hidden");
         const mapped = mapHeaderToRow(inputHeader.value, inputRow.value);
         console.log(mapped);
         const mappedColumns = mapHeaderToSQLDatatype(mapped);
@@ -327,14 +340,15 @@ function transitionToDataInferenceStage() {
         const importDiv = document.getElementById("import");
         importDiv.classList.add("hidden");
         //unhide the generate button
-        const generateButton = document.getElementById("generateButton");
+        let generateButton = document.getElementById("generateButton");
         generateButton.classList.remove("hidden");
-        generateButton.addEventListener('click', () => {
-            transitionToGenerationStage();
-        });
+
     }
 
 }
+document.getElementById("generateButton").addEventListener('click', () => {
+    transitionToGenerationStage();
+});
 
 // add event listener to submit button
 submitButton.addEventListener('click', () => {
@@ -378,7 +392,6 @@ function validateCSV(csvHeader, csvRow) {
 
 function inferDataType(str) {
 
-
     // Check for INTEGER
     if (/^\d+$/.test(str)) {
         return SQLToDoctrineDeclarativeSchemaDataTypes.INTEGER;
@@ -419,23 +432,30 @@ function convertHeaderColumnToSQLCompatibleRow(headerColumn) {
 
 
 function convertHeaderColumnToPHPCompatiblePropertyName(headerColumn) {
+
+    // Remove special characters
+    let noSpecialChars = headerColumn.replace(/[^\w\s]/g, ' ');
+
+
     // Remove leading and trailing spaces
-    let trimmed = headerColumn.trim();
+    let trimmed = noSpecialChars.trim();
 
     // Remove consecutive spaces
     let noConsecutiveSpaces = trimmed.replace(/\s+/g, ' ');
 
-    // Remove special characters
-    let noSpecialChars = noConsecutiveSpaces.replace(/[^\w\s]/g, '');
+    console.log(noSpecialChars)
 
     // Convert to lowercase
-    let lowercase = noSpecialChars.toLowerCase();
+    let lowercase = noConsecutiveSpaces.toLowerCase();
+
+    console.log(lowercase)
 
     // Remove spaces, capitalize first letter of each word, and remove underscores
     let words = lowercase.split(' ');
     let converted = words
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join('');
+    console.log(converted)
 
     // Convert first letter to lowercase
     let convertedCamelCase = converted[0].toLowerCase() + converted.slice(1);
