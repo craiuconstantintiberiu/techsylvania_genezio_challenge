@@ -84,7 +84,7 @@ body
 }
 
 .tableContainer {
-  max-height: 700px;
+  max-height: 640px;
   overflow: auto;
 }
 .table {
