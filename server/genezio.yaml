@@ -11,6 +11,6 @@ frontend:
   path: ../client
   subdomain: gray-wily-eel
 classes:
-  - path: ./task.js
+  - path: ./generator.js
     type: jsonrpc
     methods: []
