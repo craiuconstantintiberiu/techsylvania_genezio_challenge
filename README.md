@@ -38,6 +38,9 @@ This solution actually saves a ton of time, as it reduces the time needed to int
 I would say that around 30-40 minutes can be reduced by not manually converting the data model and writing the code for importing the CSV for each provider. However, the time that I imagine would not be wasted searching for bugs due to typos is far, far higher. Just as an example, I would not have spent 4 hours debugging the entire service only to find out I missed a character.
 
 
+Note that this is, at it stands at the moment, a quick and dirty solution I busted out in around 2 hours. But it's very useful already, and it has all the core functionalities already, even though the CSS might not be that good 😆
+
+
 (I did try using ChatGPT, but it makes hard-to-spot typos, even though it all looks well at first. This seems to happen on large files a lot, when continuing generation).
 
 Access it at https://gray-wily-eel.app.genez.io. I have added two sample CSV rows of 130 columns, and you can just press submit. The file is also present in the repo, as samplecsv.csv
